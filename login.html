@@ -65,8 +65,9 @@ $(function () {
       },
       dataType: "json",
       success: function (data) {
-        sessionStorage.user = JSON.stringify(data);
-        location.href = "http://localhost:8080"
+        console.log(data);
+        localStorage.user = JSON.stringify(data);
+        location.href = "http://localhost:8081"
       }
     });
   });

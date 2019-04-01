@@ -39,13 +39,6 @@ let defaultRouter = [
     children: []
   },
   {
-    path: '/login',
-    component: Login,
-    name: '',
-    hidden: true,
-    children: []
-  },
-  {
     path: '/index',
     iconCls: 'fa fa-dashboard', // 图标样式class
     name: '主页',
@@ -290,7 +283,5 @@ let addRouter = [
 ]
 
 let fullPath = defaultRouter.concat(addRouter)
-export default new Router({
-  routes: fullPath
-})
+
 export {defaultRouter, addRouter, fullPath}
