@@ -64,17 +64,17 @@ const menu = [
     "children": []
   },
   {
-    "path": "/index",
+    "path": "/",
     "iconCls": "fa fa-dashboard",
     "name": "主页",
-    "component": "Layout",
+    "components": "Common.Layout",
     "alone": true,
     "children": [
       {
         "path": "/index",
         "iconCls": "fa fa-dashboard",
         "name": "主页",
-        "component": "HomeMain",
+        "components": "Common.HomeMain",
         "children": [],
         "display": true
       }
@@ -84,13 +84,13 @@ const menu = [
     "path": "/",
     "iconCls": "el-icon-tickets",
     "name": "文章管理",
-    "component": "Layout",
+    "components": "Common.Layout",
     "children": [
       {
         "path": "/addArticle",
         "iconCls": "el-icon-edit-outline",
         "name": "发布文章",
-        "component": "func.AddArticle",
+        "components": "func.AddArticle",
         "children": [],
         "display": false
       },
@@ -98,9 +98,9 @@ const menu = [
         "path": "/addArticleEditor",
         "iconCls": "el-icon-edit-outline",
         "name": "发布文章-富文本",
-        "component": "func.AddArticleEditor",
+        "components": "func.AddArticleEditor",
         "children": [],
-        "display": true
+        "display": false
       }
     ]
   },
@@ -108,13 +108,13 @@ const menu = [
     "path": "/",
     "iconCls": "fa fa-paw",
     "name": "图标",
-    "component": "Layout",
+    "components": "Common.Layout",
     "children": [
       {
         "path": "/icon",
         "iconCls": "fa fa-life-ring",
         "name": "内置图标",
-        "component": "func.Icon",
+        "components": "func.Icon",
         "children": [],
         "display": false
       }
@@ -124,13 +124,13 @@ const menu = [
     "path": "/",
     "iconCls": "fa fa-exchange",
     "name": "穿梭框",
-    "component": "Layout",
+    "components": "Common.Layout",
     "children": [
       {
         "path": "/transfer",
         "iconCls": "fa fa-sign-in",
         "name": "穿梭框demo",
-        "component": "func.Transfer",
+        "components": "func.Transfer",
         "children": [],
         "display": false
       }
@@ -140,13 +140,13 @@ const menu = [
     "path": "/",
     "iconCls": "fa fa-newspaper-o",
     "name": "表格",
-    "component": "Layout",
+    "components": "Common.Layout",
     "children": [
       {
         "path": "/dataTable",
         "iconCls": "fa fa-sliders",
         "name": "多选数据表格",
-        "component": "func.DataTable",
+        "components": "func.DataTable",
         "children": [],
         "display": false
       },
@@ -154,15 +154,15 @@ const menu = [
         "path": "/filterTable",
         "iconCls": "fa fa-sort-amount-asc",
         "name": "筛选表格",
-        "component": "func.FilterTable",
+        "components": "func.FilterTable",
         "children": [],
-        "display": false
+        "display": true
       },
       {
         "path": "/dragTabe",
         "iconCls": "fa fa-hand-stop-o",
         "name": "拖拽排序",
-        "component": "func.DragTable",
+        "components": "func.DragTable",
         "children": [],
         "display": false
       }
@@ -170,7 +170,7 @@ const menu = [
   },
   {
     "path": "/404",
-    "component": "Common.NotFound",
+    "components": "Common.NotFound",
     "name": "404",
     "hidden": true,
     "children": []
@@ -195,6 +195,7 @@ var f = (a, b) => {
 }
 // var newData = menu.reduce(f, [])
 
+// 处理数据
 var newData = menu.map(v => {
   if (!v.children) return { ...v }
   return { ...v, children: v.children.filter(n => n.display) }
@@ -202,21 +203,42 @@ var newData = menu.map(v => {
 
 function assignRouter(prev, next) {
   console.log(next)
-  console.log(Object.keys(next), Object.values(next))
   prev.reduce((a, b) => {
-    //console.log(b)
+    // console.log(b)
     if (b.children && b.children.length > 0) {
+      // console.log(b.components)
+      if (b.components) {
+        // console.log(b.components)
+        let squs = Object.keys(next).findIndex(v => { return b.components.indexOf(v) > -1 })
+        // console.log(squ)
+        let nums = Object.keys(Object.values(next)[squs]).findIndex(v => { return b.components.indexOf(v) > -1 })
+        // console.log(num)
+        // console.log(Object.values(next)[squs][Object.keys(Object.values(next)[squs])[nums]])
+        b.components = Object.values(next)[squs][Object.keys(Object.values(next)[squs])[nums]]
+      }
       b.children.filter(k => {
-        console.log(k.component)
-        k.component = k.component ? k.component.replace(/"/g, '') : k.component
-        
+        // console.log(k.components)
+        let index = Object.keys(next).findIndex(v => { return k.components.indexOf(v) > -1 })
+        // console.log(index)
+        let idx = Object.keys(Object.values(next)[index]).findIndex(v => { return k.components.indexOf(v) > -1 })
+        // console.log(idx)
+        // console.log(Object.values(next)[index][Object.keys(Object.values(next)[index])[idx]])
+        k.components = Object.values(next)[index][Object.keys(Object.values(next)[index])[idx]]
       })
     } else {
-      console.log(b.component)
-      b.component = b.component ? b.component.replace(/"/g, '') : b.component
+      // let idx = Object.keys(next).findIndex(v => { return b.components.indexOf(v) > -1 })
+      // console.log(idx)
+      if (b.components) {
+        // console.log(b.components)
+        let squ = Object.keys(next).findIndex(v => { return b.components.indexOf(v) > -1 })
+        // console.log(squ)
+        let num = Object.keys(Object.values(next)[squ]).findIndex(v => { return b.components.indexOf(v) > -1 })
+        // console.log(num)
+        // console.log(Object.values(next)[squ][Object.keys(Object.values(next)[squ])[num]])
+        b.components = Object.values(next)[squ][Object.keys(Object.values(next)[squ])[num]]
+      }
     }
-  })
-  console.log(prev)
+  }, [])
   return prev
 }
 
@@ -224,16 +246,15 @@ function assignRouter(prev, next) {
 //   //console.log(b)
 //   if (b.children && b.children.length > 0) {
 //     b.children.filter(k => {
-//       console.log(k.component)
-//       k.component = k.component ? k.component.replace(/"/g, '') : k.component
+//       console.log(k.components)
+//       k.components = k.components ? k.components.replace(/"/g, '') : k.components
 //     })
 //   } else {
-//     console.log(b.component)
-//     b.component = b.component ? b.component.replace(/"/g, '') : b.component
+//     console.log(b.components)
+//     b.components = b.components ? b.components.replace(/"/g, '') : b.components
 //   }
 // })
 // console.log(newData)
-
 
 // new Login(function (err, data) {
 //   if (err) {
@@ -254,11 +275,10 @@ const init = function (data) {
   console.log(router)
   // 再实例化vue
   new Vue({
-    el: '#app',
     store,
     router,
-    ...App
-  })
+    render: h => h(App)
+  }).$mount('#app')
 }
 
 init(newData)
