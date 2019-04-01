@@ -66,3 +66,21 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+
+let user = sessionStorage.getItem('user');
+if (user) {
+  user = JSON.parse(user)
+  //筛选得到实际路由
+  // let fullPath = require('fullPath.js');
+  // let routes = filter(fullPath, user.userMenu);
+  //创建路由对象
+  let router = new Router({routes})
+  //生成Vue实例
+  new Vue({
+    el: '#app',
+    router,
+    render: h => h(App)
+  });
+} else {
+  location.href = 'file:///E:/vue-xuAdmin-master/login.html';
+}

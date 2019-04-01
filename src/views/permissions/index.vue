@@ -21,47 +21,12 @@
 </template>
 
 <script>
+import data from './data.js'
+
 export default {
   data () {
     return {
-      data: [{
-        id: 1,
-        label: '一级 1',
-        children: [{
-          id: 101,
-          label: '二级 1-1',
-          children: [{
-            id: 10101,
-            label: '三级 1-1-1'
-          }, {
-            id: 10102,
-            label: '三级 1-1-2'
-          }]
-        }]
-      }, {
-        id: 2,
-        label: '表格',
-        children: [{
-          id: 201,
-          label: '多选数据表格'
-        }, {
-          id: 202,
-          label: '筛选表格'
-        }, {
-          id: 203,
-          label: '拖拽排序'
-        }]
-      }, {
-        id: 3,
-        label: '编辑器',
-        children: [{
-          id: 301,
-          label: 'markdown'
-        }, {
-          id: 302,
-          label: 'editor'
-        }]
-      }],
+      data: data,
       defaultProps: {
         children: 'children',
         label: 'label'
