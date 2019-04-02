@@ -107,25 +107,12 @@ const init = function (data) {
   // 实例化路由
   let router = new Router({routes: routers})
   store.commit('setRouters', routers)
-  console.log(router.app)
   // 再实例化vue
   new Vue({
     store,
     router,
     render: h => h(App)
   }).$mount('#app')
-
-  console.log(router.app)
 }
 
-let routers = assignRouter(newData, componentConfig)
-// 实例化路由
-let router = new Router({routes: routers})
-store.commit('setRouters', routers)
-console.log(router.app)
-
-new Vue({
-  store,
-  router,
-  render: h => h(App)
-}).$mount('#app')
+init(newData)

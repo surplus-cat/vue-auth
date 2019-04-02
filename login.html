@@ -11,14 +11,17 @@
   body {
     height: 100vh;
     display: flex;
+    background-color: #409EFF;
     justify-content: center;
     align-items: center;
     padding: 0;
     margin: 0;
   }
 
-  #login {
-    width: 100px;
+  ul, li {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
   }
 
   .inputbox {
@@ -29,12 +32,21 @@
     outline: none;
   }
 
+  .btnBox {
+    height: 30px;
+    line-height: 30px;
+    display: flex;
+    justify-content: center;
+  }
+
   .btn {
+    height: 30px;
     font-size: 14px;
-    line-height: 20px;
+    display: block;
     color: #fff;
     background-color: #f13146;
     border-radius: 5px;
+    margin-right: 10px;
     border: none;
     outline: none;
   }
@@ -42,9 +54,15 @@
 
 <body>
   <div id="login">
-    <input type="text" placeholder="请输入账号" class="inputbox" name="username" />
-    <input type="password" class="inputbox" name="password">
-    <div>
+    <ul>
+      <li>
+        <input type="text" placeholder="随便输入一个账号" class="inputbox" name="username" autocomplete="off" />
+      </li>
+      <li>
+        <input type="password" class="inputbox" name="password">
+      </li>
+    </ul>
+    <div class="btnBox">
       <button class="btn" id="send">确定</button>
       <button class="btn">取消</button>
     </div>
@@ -56,18 +74,25 @@
 <script>
 $(function () {
   $('#send').click(function () {
+    if ($("input[name='username']").val() === '') {
+      alert('请输入账号')
+      return false
+    }
+    if ($("input[name='password']").val() === '') {
+      alert('请输入密码')
+      return false
+    }
     $.ajax({
-      type: "POST",
-      url: "https://www.easy-mock.com/mock/5c9da69927388d303f3837b7/example/login",
+      type: 'POST',
+      url: 'https://www.easy-mock.com/mock/5c9da69927388d303f3837b7/example/login',
       data: {
         username: $("input[name='username']").val(),
         password: $("input[name='password']").val()
       },
-      dataType: "json",
+      dataType: 'json',
       success: function (data) {
-        console.log(data);
-        localStorage.user = JSON.stringify(data);
-        location.href = "http://localhost:8081"
+        sessionStorage.user = JSON.stringify(data);
+        location.href = 'http://localhost:8081'
       }
     });
   });
