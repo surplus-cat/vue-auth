@@ -16,17 +16,17 @@
         :router="$store.getters.uniquerouter"
         :unique-opened="$store.getters.uniquerouter"
         :collapse-transition="true">
-        <template v-for="(item,index) in $store.getters.routers" v-if="!item.hidden">
+        <template v-for="(item, index) in $store.getters.routers" v-if="!item.hidden">
           <el-submenu v-if="!item.alone && item.children.length>0" :index="index+''">
             <template slot="title">
               <i :class="item.iconCls?item.iconCls:[fa,fa-server]"></i>
-              <span slot="title">{{ $t(`${item.name}`) }}</span>
+              <span slot="title">{{ `${item.name}` }}</span>
             </template>
             <menu-tree :menuData="item.children"></menu-tree>
           </el-submenu>
           <el-menu-item :index="item.path" v-else>
             <i :class="item.iconCls?item.iconCls:[fa,fa-file]"></i>
-            <span slot="title">{{ $t(`${item.name}`) }}</span>
+            <span slot="title">{{ `${item.name}` }}</span>
           </el-menu-item>
         </template>
 

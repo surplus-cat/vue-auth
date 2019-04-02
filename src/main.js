@@ -64,7 +64,7 @@ const menu = [
     "children": []
   },
   {
-    "path": "/",
+    "path": "/index",
     "iconCls": "fa fa-dashboard",
     "name": "主页",
     "components": "Common.Layout",
@@ -100,7 +100,7 @@ const menu = [
         "name": "发布文章-富文本",
         "components": "func.AddArticleEditor",
         "children": [],
-        "display": false
+        "display": true
       }
     ]
   },
@@ -132,7 +132,7 @@ const menu = [
         "name": "穿梭框demo",
         "components": "func.Transfer",
         "children": [],
-        "display": false
+        "display": true
       }
     ]
   },
@@ -156,7 +156,7 @@ const menu = [
         "name": "筛选表格",
         "components": "func.FilterTable",
         "children": [],
-        "display": true
+        "display": false
       },
       {
         "path": "/dragTabe",
@@ -164,7 +164,7 @@ const menu = [
         "name": "拖拽排序",
         "components": "func.DragTable",
         "children": [],
-        "display": false
+        "display": true
       }
     ]
   },
@@ -183,18 +183,6 @@ const menu = [
   }
 ]
 
-var f = (a, b) => {
-  if (b.display === false) {
-    return a
-  }
-  if (b.children && b.children.length) {
-    b.children = b.children.reduce(f, [])
-  }
-  a.push(b)
-  return a
-}
-// var newData = menu.reduce(f, [])
-
 // 处理数据
 var newData = menu.map(v => {
   if (!v.children) return { ...v }
@@ -206,55 +194,28 @@ function assignRouter(prev, next) {
   prev.reduce((a, b) => {
     // console.log(b)
     if (b.children && b.children.length > 0) {
-      // console.log(b.components)
       if (b.components) {
-        // console.log(b.components)
         let squs = Object.keys(next).findIndex(v => { return b.components.indexOf(v) > -1 })
-        // console.log(squ)
         let nums = Object.keys(Object.values(next)[squs]).findIndex(v => { return b.components.indexOf(v) > -1 })
-        // console.log(num)
-        // console.log(Object.values(next)[squs][Object.keys(Object.values(next)[squs])[nums]])
+
         b.components = Object.values(next)[squs][Object.keys(Object.values(next)[squs])[nums]]
       }
       b.children.filter(k => {
-        // console.log(k.components)
         let index = Object.keys(next).findIndex(v => { return k.components.indexOf(v) > -1 })
-        // console.log(index)
         let idx = Object.keys(Object.values(next)[index]).findIndex(v => { return k.components.indexOf(v) > -1 })
-        // console.log(idx)
-        // console.log(Object.values(next)[index][Object.keys(Object.values(next)[index])[idx]])
+
         k.components = Object.values(next)[index][Object.keys(Object.values(next)[index])[idx]]
       })
     } else {
-      // let idx = Object.keys(next).findIndex(v => { return b.components.indexOf(v) > -1 })
-      // console.log(idx)
       if (b.components) {
-        // console.log(b.components)
         let squ = Object.keys(next).findIndex(v => { return b.components.indexOf(v) > -1 })
-        // console.log(squ)
         let num = Object.keys(Object.values(next)[squ]).findIndex(v => { return b.components.indexOf(v) > -1 })
-        // console.log(num)
-        // console.log(Object.values(next)[squ][Object.keys(Object.values(next)[squ])[num]])
         b.components = Object.values(next)[squ][Object.keys(Object.values(next)[squ])[num]]
       }
     }
   }, [])
   return prev
 }
-
-// newData.reduce((a, b) => {
-//   //console.log(b)
-//   if (b.children && b.children.length > 0) {
-//     b.children.filter(k => {
-//       console.log(k.components)
-//       k.components = k.components ? k.components.replace(/"/g, '') : k.components
-//     })
-//   } else {
-//     console.log(b.components)
-//     b.components = b.components ? b.components.replace(/"/g, '') : b.components
-//   }
-// })
-// console.log(newData)
 
 // new Login(function (err, data) {
 //   if (err) {
@@ -272,7 +233,7 @@ const init = function (data) {
   console.log(routers);
   // 实例化路由
   let router = new Router({routes: routers})
-  console.log(router)
+  store.commit('setRouters', routers)
   // 再实例化vue
   new Vue({
     store,

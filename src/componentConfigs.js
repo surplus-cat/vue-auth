@@ -3,17 +3,17 @@ export default {
     // Admin: require('../../vue/pages/common/Admin'),
     // Index: require('../../vue/pages/common/Index'),
     // UpdatePassword: r => require.ensure([], () => r(require('../../vue/pages/users/UpdatePassword')), 'users'),
-    NotFound: import('@/page404'),
-    Layout: import('@/views/layout/layout'),
-    HomeMain: import('@/views/index/mainIndex')
+    NotFound: require('@/page404'),
+    Layout: require('@/views/layout/layout'),
+    HomeMain: require('@/views/index/mainIndex')
   },
   func: {
-    AddArticle: import('@/views/article/addArticle'),
-    AddArticleEditor: () => import('@/views/article/addArticleEditor'),
-    Icon: import('@/views/icon/index'),
-    Transfer: import('@/views/transfer/transfer'),
-    DataTable: import('@/views/table/dataTables'),
-    FilterTable: () => import('@/views/table/filterTable'),
-    DragTable: () => import('@/views/table/dragTabe')
+    AddArticle: require('@/views/article/addArticle'),
+    AddArticleEditor: require('@/views/article/addArticleEditor'),
+    Icon: require('@/views/icon/index'),
+    Transfer: require('@/views/transfer/transfer'),
+    DataTable: require('@/views/table/dataTables'),
+    FilterTable: require('@/views/table/filterTable'),
+    DragTable: require('@/views/table/dragTabe')
   }
 }

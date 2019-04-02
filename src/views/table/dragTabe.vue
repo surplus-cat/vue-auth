@@ -101,14 +101,14 @@ export default {
   },
   methods: {
     handleEdit (index, row) {
-      console.log(index, row);
+      console.log(index, row)
     },
     handleDelete (index, row) {
-      console.log(index, row);
+      console.log(index, row)
     },
     filterTag (value, row) {
-      return row.tag === value;
-    },
+      return row.tag === value
+    }
   },
   mounted () {
     let el = document.querySelectorAll('.el-table__body-wrapper > table > tbody')[0]

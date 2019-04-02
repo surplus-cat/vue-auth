@@ -4,15 +4,15 @@
       <transition-group name="list" tag="ul">
         <li v-for="(item, index) in $store.getters.tabnavBox" @contextmenu.prevent="openMenu(item,$event,index)"
             :key="item.title" class="tabnav" :class="{ active: $route.path === item.path }">
-          <router-link :to="item.path">{{ $t(`${item.title}`) }}</router-link>
+          <router-link :to="item.path">{{ `${item.title}` }}</router-link>
           <i @click="removeTab(item)" class="el-icon-error" v-if="index !== 0"></i>
         </li>
       </transition-group>
     </div>
     <ul v-show="this.rightMenuShow" :style="{left:this.left+'px',top:this.top+'px'}" class="menuBox">
-      <li @click="removeTab($store.getters.rightNav)"><i class="fa fa-remove"></i>{{ $t('rightMenu.close') }}</li>
-      <li @click="removeOtherTab($store.getters.rightNav)">{{ $t('rightMenu.closeOther') }}</li>
-      <li @click="removeAllTab">{{ $t('rightMenu.closeAll') }}</li>
+      <li @click="removeTab($store.getters.rightNav)"><i class="fa fa-remove"></i>关闭</li>
+      <li @click="removeOtherTab($store.getters.rightNav)">关闭其他</li>
+      <li @click="removeAllTab">关闭所有</li>
     </ul>
   </div>
 </template>

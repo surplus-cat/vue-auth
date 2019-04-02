@@ -11,24 +11,24 @@
             content="全屏"
             placement="bottom"><i class="fa fa-arrows-alt fa-lg"></i></el-tooltip>
         </li>
-        <li>{{ $t(`role.${this.$store.getters.info.role}`) }}</li>
+        <li>{{  }}</li>
         <li>
           <el-dropdown @command="handleCommand">
             <span class="el-dropdown-link">
               夏洛克丶旭<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="a">{{ $t('userDropdownMenu.basicInfor') }}</el-dropdown-item>
-              <el-dropdown-item command="b">{{ $t('userDropdownMenu.changePassword') }}</el-dropdown-item>
+              <el-dropdown-item command="a">基本信息</el-dropdown-item>
+              <el-dropdown-item command="b">修改密码</el-dropdown-item>
               <el-dropdown-item command="logout"
-                divided>{{ $t('userDropdownMenu.logout') }}</el-dropdown-item>
+                divided>退出登录</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </li>
         <li class="icon"><img :src="avatar" /></li>
       </ul>
     </el-header>
-    <tabNav></tabNav>
+    <tab-nav></tab-nav>
   </div>
 </template>
 
