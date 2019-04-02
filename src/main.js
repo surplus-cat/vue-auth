@@ -55,7 +55,7 @@ Vue.use(ElementUI)
 
 //   }
 // })
-if (!sessionStorage.user) location.href = 'http://localhost:8081/login.html'
+if (!sessionStorage.user) location.href = 'http://localhost:8964/login.html'
 const menu = JSON.parse(sessionStorage.user).data.userMenu
 
 // 处理数据

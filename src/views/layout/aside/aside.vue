@@ -4,7 +4,7 @@
     <el-aside id="asideNav">
       <div class="logo-name">
         <p v-if="$store.getters.logoShow">XU</p>
-        <p v-else>vue-xuAdmin后台模板</p>
+        <p v-else>后台模板</p>
       </div>
       <el-menu :default-active="$route.path"
         class="el-menu-vertical"
