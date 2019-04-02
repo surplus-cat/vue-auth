@@ -29,6 +29,11 @@ export default {
         title: arg.title,
         path: arg.path
       })
+      sessionStorage.tabnavBox = JSON.stringify(state.tabnavBox)
+    },
+    initTab (state, val) {
+      console.log(val)
+      state.tabnavBox = val
     },
     openMenu (state, arg) {
       state.rightNav = arg

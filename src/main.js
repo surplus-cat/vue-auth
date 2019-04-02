@@ -11,6 +11,7 @@ import App from './App.vue'
 import Router from 'vue-router'
 import store from './vuex'
 import componentConfig from './componentConfigs'
+//import axios from 'axios'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
@@ -54,6 +55,12 @@ Vue.use(ElementUI)
 //     next({ path: '/login' })
 
 //   }
+// })
+// axios.post('https://www.easy-mock.com/mock/5c9da69927388d303f3837b7/example/login', {
+//   username: '1111',
+//   password: '1111'
+// }).then(res => {
+//   sessionStorage.user = JSON.stringify(res.data)
 // })
 if (!sessionStorage.user) location.href = 'http://localhost:8964/login.html'
 const menu = JSON.parse(sessionStorage.user).data.userMenu
@@ -107,6 +114,12 @@ const init = function (data) {
   // 实例化路由
   let router = new Router({routes: routers})
   store.commit('setRouters', routers)
+  store.commit('initTab', sessionStorage.tabnavBox ? JSON.parse(sessionStorage.tabnavBox) : [
+    {
+      title: '主页',
+      path: '/index'
+    }
+  ])
   // 再实例化vue
   new Vue({
     store,
