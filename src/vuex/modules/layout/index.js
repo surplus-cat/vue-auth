@@ -69,7 +69,7 @@ export default {
       } else {
         state.logoShow = true
       }
-    },
+    }
   },
   actions: {
     addTab ({commit}, arg) {

@@ -11,7 +11,7 @@ import App from './App.vue'
 import Router from 'vue-router'
 import store from './vuex'
 import componentConfig from './componentConfigs'
-//import axios from 'axios'
+import axios from 'axios'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
@@ -56,13 +56,13 @@ Vue.use(ElementUI)
 
 //   }
 // })
-// axios.post('https://www.easy-mock.com/mock/5c9da69927388d303f3837b7/example/login', {
-//   username: '1111',
-//   password: '1111'
-// }).then(res => {
-//   sessionStorage.user = JSON.stringify(res.data)
-// })
-if (!sessionStorage.user) location.href = 'http://localhost:8964/login.html'
+axios.post('https://www.easy-mock.com/mock/5c9da69927388d303f3837b7/example/login', {
+  username: '1111',
+  password: '1111'
+}).then(res => {
+  sessionStorage.user = JSON.stringify(res.data)
+})
+// if (!sessionStorage.user) location.href = 'http://localhost:8964/login.html'
 const menu = JSON.parse(sessionStorage.user).data.userMenu
 
 // 处理数据
@@ -120,6 +120,7 @@ const init = function (data) {
       path: '/index'
     }
   ])
+  console.log(router)
   // 再实例化vue
   new Vue({
     store,

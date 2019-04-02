@@ -14,5 +14,8 @@
       "presets": ["env", "stage-2"],
       "plugins": ["transform-vue-jsx", "transform-es2015-modules-commonjs", "dynamic-import-node"]
     }
-  }
+  },
+  "ignore": [
+    "./src/componentConfigs.js"
+  ]
 }
