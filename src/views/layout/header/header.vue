@@ -80,7 +80,8 @@ export default {
     handleCommand(command) {
       if (command === 'logout') {
         Cookies.remove('token');
-        location.reload()
+        sessionStorage.tabnavBox = ""
+        location.href = 'http://localhost:8964/login.html'
       }
     }
   }
