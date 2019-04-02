@@ -11,7 +11,6 @@ import App from './App.vue'
 import Router from 'vue-router'
 import store from './vuex'
 import componentConfig from './componentConfigs'
-import axios from 'axios'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
@@ -56,14 +55,6 @@ Vue.use(ElementUI)
 
 //   }
 // })
-axios.post('https://www.easy-mock.com/mock/5c9da69927388d303f3837b7/example/login', {
-  username: '1111',
-  password: '1111'
-}).then(res => {
-  console.log(1111)
-  sessionStorage.user = JSON.stringify(res.data)
-})
-
 if (!sessionStorage.user) location.href = 'http://localhost:8081/login.html'
 const menu = JSON.parse(sessionStorage.user).data.userMenu
 
@@ -74,7 +65,6 @@ var newData = menu.map(v => {
 })
 
 function assignRouter (prev, next) {
-  console.log(next)
   prev.reduce((a, b) => {
     // console.log(b)
     if (b.children && b.children.length > 0) {
@@ -117,16 +107,25 @@ const init = function (data) {
   // 实例化路由
   let router = new Router({routes: routers})
   store.commit('setRouters', routers)
+  console.log(router.app)
   // 再实例化vue
   new Vue({
     store,
     router,
     render: h => h(App)
   }).$mount('#app')
+
+  console.log(router.app)
 }
 
-console.log(Vue)
+let routers = assignRouter(newData, componentConfig)
+// 实例化路由
+let router = new Router({routes: routers})
+store.commit('setRouters', routers)
+console.log(router.app)
 
-init(newData)
-
-console.log(Vue)
+new Vue({
+  store,
+  router,
+  render: h => h(App)
+}).$mount('#app')

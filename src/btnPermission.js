@@ -11,9 +11,7 @@ Vue.directive('roleBtn', {
   bind: function (el, binding) {
     let roleArr = binding.value
     let arr = []
-    //  console.log(roleArr[0])
     let userRole = JSON.parse(sessionStorage.user).data.userMenu
-    //  console.log(userRole)
     userRole.reduce((a, b) => {
       if (b.children && b.children.length > 0) {
         b.children.filter(k => {
@@ -27,7 +25,7 @@ Vue.directive('roleBtn', {
         }
       }
     })
-        
+
     if (!arr[0].meta.handleAuth[roleArr[1]]) {
       el.parentNode.removeChild(el)
     }

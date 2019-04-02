@@ -12,7 +12,7 @@ export default {
     rightNav: {},
     tabnavBox: [
       {
-        title: 'home',
+        title: '主页',
         path: '/index'
       }
     ]

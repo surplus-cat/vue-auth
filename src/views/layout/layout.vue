@@ -1,16 +1,16 @@
 <template>
   <div id="loyout">
     <el-container>
-      <layoutAside></layoutAside>
+      <layout-aside></layout-aside>
       <el-container>
-        <layoutHeader></layoutHeader>
+        <layout-header></layout-header>
         <el-main id="elmain">
           <transition name="main" mode="out-in">
             <router-view></router-view>
           </transition>
         </el-main>
         <el-footer>
-          <Bottom></Bottom>
+          <bottom></bottom>
         </el-footer>
       </el-container>
     </el-container>
@@ -20,19 +20,14 @@
 <script>
 import layoutAside from './aside/aside'
 import layoutHeader from './header/header'
-import Bottom from './Footer/bottom'
-import langSelect from '../../components/lang/langSelect'
+import bottom from './Footer/bottom'
 
 export default {
   name: 'dc-home',
   components: {
     layoutHeader,
-    Bottom,
-    langSelect,
+    bottom,
     layoutAside
-  },
-  created () {
-    this.$router.push('/index')
   }
 }
 </script>

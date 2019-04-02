@@ -14,7 +14,7 @@ const store = new Vuex.Store({
   mutations: {
     setToken (state, token) {
       state.token = token
-      Cookies.set('token', token ,{ expires: 1/24 });
+      Cookies.set('token', token, { expires: 1 / 24 })
     }
   },
   actions: {
@@ -37,7 +37,7 @@ const store = new Vuex.Store({
     visible: state => state.layout.visible,
     left: state => state.layout.left,
     top: state => state.layout.top,
-    rightNav: state => state.layout.rightNav,
+    rightNav: state => state.layout.rightNav
   },
   modules: {
     routerData,
