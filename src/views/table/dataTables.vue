@@ -31,7 +31,9 @@
       </el-table>
       <div style="margin-top: 20px">
         <el-button @click="toggleSelection([tableData4[1], tableData4[2]])">切换第二、第三行的选中状态</el-button>
-        <el-button @click="toggleSelection()" v-role-btn="['superAdmin', 'admin']">取消选择</el-button>
+        <el-button v-role-btn="['/dataTable', 'add']">新增</el-button>
+        <el-button v-role-btn="['/dataTable', 'edit']">编辑</el-button>
+        <el-button v-role-btn="['/dataTable', 'del']">删除</el-button>
       </div>
     </template>
   </div>

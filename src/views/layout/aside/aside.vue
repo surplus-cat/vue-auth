@@ -24,7 +24,7 @@
             </template>
             <menu-tree :menuData="item.children"></menu-tree>
           </el-submenu>
-          <el-menu-item :index="item.path" v-else>
+          <el-menu-item :index="item.path" v-else-if="item.alone">
             <i :class="item.iconCls?item.iconCls:[fa,fa-file]"></i>
             <span slot="title">{{ `${item.name}` }}</span>
           </el-menu-item>

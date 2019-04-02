@@ -2,7 +2,6 @@ import cn from '../i18n/lang/cn'
 import Vue from 'vue'
 import Router from 'vue-router'
 import CommerViews from '@/views/commerViews'
-import Login from '@/views/login/index'
 import Layout from '@/views/layout/layout'
 import HomeMain from '@/views/index/mainIndex'
 

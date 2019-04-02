@@ -11,6 +11,7 @@ import App from './App.vue'
 import Router from 'vue-router'
 import store from './vuex'
 import componentConfig from './componentConfigs'
+import axios from 'axios'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
@@ -55,133 +56,16 @@ Vue.use(ElementUI)
 
 //   }
 // })
+axios.post('https://www.easy-mock.com/mock/5c9da69927388d303f3837b7/example/login', {
+  username: '1111',
+  password: '1111'
+}).then(res => {
+  console.log(1111)
+  sessionStorage.user = JSON.stringify(res.data)
+})
 
-const menu = [
-  {
-    "path": "/",
-    "redirect": "/index",
-    "hidden": true,
-    "children": []
-  },
-  {
-    "path": "/index",
-    "iconCls": "fa fa-dashboard",
-    "name": "主页",
-    "components": "Common.Layout",
-    "alone": true,
-    "children": [
-      {
-        "path": "/index",
-        "iconCls": "fa fa-dashboard",
-        "name": "主页",
-        "components": "Common.HomeMain",
-        "children": [],
-        "display": true
-      }
-    ]
-  },
-  {
-    "path": "/",
-    "iconCls": "el-icon-tickets",
-    "name": "文章管理",
-    "components": "Common.Layout",
-    "children": [
-      {
-        "path": "/addArticle",
-        "iconCls": "el-icon-edit-outline",
-        "name": "发布文章",
-        "components": "func.AddArticle",
-        "children": [],
-        "display": false
-      },
-      {
-        "path": "/addArticleEditor",
-        "iconCls": "el-icon-edit-outline",
-        "name": "发布文章-富文本",
-        "components": "func.AddArticleEditor",
-        "children": [],
-        "display": true
-      }
-    ]
-  },
-  {
-    "path": "/",
-    "iconCls": "fa fa-paw",
-    "name": "图标",
-    "components": "Common.Layout",
-    "children": [
-      {
-        "path": "/icon",
-        "iconCls": "fa fa-life-ring",
-        "name": "内置图标",
-        "components": "func.Icon",
-        "children": [],
-        "display": false
-      }
-    ]
-  },
-  {
-    "path": "/",
-    "iconCls": "fa fa-exchange",
-    "name": "穿梭框",
-    "components": "Common.Layout",
-    "children": [
-      {
-        "path": "/transfer",
-        "iconCls": "fa fa-sign-in",
-        "name": "穿梭框demo",
-        "components": "func.Transfer",
-        "children": [],
-        "display": true
-      }
-    ]
-  },
-  {
-    "path": "/",
-    "iconCls": "fa fa-newspaper-o",
-    "name": "表格",
-    "components": "Common.Layout",
-    "children": [
-      {
-        "path": "/dataTable",
-        "iconCls": "fa fa-sliders",
-        "name": "多选数据表格",
-        "components": "func.DataTable",
-        "children": [],
-        "display": false
-      },
-      {
-        "path": "/filterTable",
-        "iconCls": "fa fa-sort-amount-asc",
-        "name": "筛选表格",
-        "components": "func.FilterTable",
-        "children": [],
-        "display": false
-      },
-      {
-        "path": "/dragTabe",
-        "iconCls": "fa fa-hand-stop-o",
-        "name": "拖拽排序",
-        "components": "func.DragTable",
-        "children": [],
-        "display": true
-      }
-    ]
-  },
-  {
-    "path": "/404",
-    "components": "Common.NotFound",
-    "name": "404",
-    "hidden": true,
-    "children": []
-  },
-  {
-    "path": "*",
-    "redirect": "/404",
-    "hidden": true,
-    "children": []
-  }
-]
+if (!sessionStorage.user) location.href = 'http://localhost:8081/login.html'
+const menu = JSON.parse(sessionStorage.user).data.userMenu
 
 // 处理数据
 var newData = menu.map(v => {
@@ -189,7 +73,7 @@ var newData = menu.map(v => {
   return { ...v, children: v.children.filter(n => n.display) }
 })
 
-function assignRouter(prev, next) {
+function assignRouter (prev, next) {
   console.log(next)
   prev.reduce((a, b) => {
     // console.log(b)
@@ -230,7 +114,6 @@ const init = function (data) {
   // 先配置路由信息
   // componentConfigs 是本地的组件配置
   let routers = assignRouter(data, componentConfig)
-  console.log(routers);
   // 实例化路由
   let router = new Router({routes: routers})
   store.commit('setRouters', routers)
@@ -242,4 +125,8 @@ const init = function (data) {
   }).$mount('#app')
 }
 
+console.log(Vue)
+
 init(newData)
+
+console.log(Vue)
