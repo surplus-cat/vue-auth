@@ -65,8 +65,9 @@ axios.post('https://www.easy-mock.com/mock/5c9da69927388d303f3837b7/example/logi
 // if (!sessionStorage.user) location.href = 'http://localhost:8964/login.html'
 const menu = JSON.parse(sessionStorage.user).data.userMenu
 console.log(componentConfig)
-console.log(componentConfig.Common.HomeMain)
+console.log(typeof componentConfig.Common.HomeMain)
 console.log(componentConfig.func.AddArticle)
+console.log(typeof componentConfig.func.AddArticle)
 
 // 处理数据
 var newData = menu.map(v => {

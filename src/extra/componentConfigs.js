@@ -1,6 +1,11 @@
 //const view = name => require(`@/views/${name}`)
-const view = name => () => import(`@/views/${name}`)
-//const view = name = r => require.ensure([], () => r(require(`${name}`)), '')
+
+//const view = name => () => import(`@/views/${name}`)
+const view = name = r => require.ensure([], () => r(require(`@/views/${name}`)), '')
+
+// const view = name => require.ensure([`./views/${name}`], function(require) {
+//   require(`./views/${name}`);
+// });
 
 //const view = name => resolve => require([`@/views/${name}`], resolve)
 //const view = name => () => import(/* webpackChunkName: "index" */ `@/views/${name}`)
