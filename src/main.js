@@ -10,7 +10,7 @@ import 'font-awesome/css/font-awesome.css'
 import App from './App.vue'
 import Router from 'vue-router'
 import store from './vuex'
-import componentConfig from './componentConfigs'
+import componentConfig from './extra/componentConfigs'
 import axios from 'axios'
 
 Vue.config.productionTip = false
@@ -64,6 +64,9 @@ axios.post('https://www.easy-mock.com/mock/5c9da69927388d303f3837b7/example/logi
 })
 // if (!sessionStorage.user) location.href = 'http://localhost:8964/login.html'
 const menu = JSON.parse(sessionStorage.user).data.userMenu
+console.log(componentConfig)
+console.log(componentConfig.Common.HomeMain)
+console.log(componentConfig.func.AddArticle)
 
 // 处理数据
 var newData = menu.map(v => {
@@ -71,9 +74,10 @@ var newData = menu.map(v => {
   return { ...v, children: v.children.filter(n => n.display) }
 })
 
+//console.log(newData)
+
 function assignRouter (prev, next) {
   prev.reduce((a, b) => {
-    // console.log(b)
     if (b.children && b.children.length > 0) {
       if (b.components) {
         let squs = Object.keys(next).findIndex(v => { return b.components.indexOf(v) > -1 })
@@ -120,7 +124,6 @@ const init = function (data) {
       path: '/index'
     }
   ])
-  console.log(router)
   // 再实例化vue
   new Vue({
     store,

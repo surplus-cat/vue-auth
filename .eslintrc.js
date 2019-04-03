@@ -2,6 +2,12 @@
 
 module.exports = {
   root: true,
+  // "parser": "babel-eslint",
+  // "parserOptions": {
+  //   "sourceType": "module",
+  //   "allowImportExportEverywhere": false,
+  //   "codeFrame": false
+  // },
   parserOptions: {
     parser: 'babel-eslint'
   },
@@ -17,7 +23,7 @@ module.exports = {
   ],
   // required to lint *.vue files
   plugins: [
-    'vue'
+    'vue', "transform-remove-strict-mode"
   ],
   // add your custom rules here
   rules: {
