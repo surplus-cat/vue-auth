@@ -64,7 +64,8 @@ axios.post('https://www.easy-mock.com/mock/5c9da69927388d303f3837b7/example/logi
 })
 // if (!sessionStorage.user) location.href = 'http://localhost:8964/login.html'
 const menu = JSON.parse(sessionStorage.user).data.userMenu
-console.log(componentConfig)
+
+console.log(componentConfig.Common.HomeMain)
 console.log(typeof componentConfig.Common.HomeMain)
 console.log(componentConfig.func.AddArticle)
 console.log(typeof componentConfig.func.AddArticle)
@@ -75,7 +76,7 @@ var newData = menu.map(v => {
   return { ...v, children: v.children.filter(n => n.display) }
 })
 
-//console.log(newData)
+console.log(newData)
 
 function assignRouter (prev, next) {
   prev.reduce((a, b) => {
@@ -115,10 +116,12 @@ function assignRouter (prev, next) {
 const init = function (data) {
   // 先配置路由信息
   // componentConfigs 是本地的组件配置
-  let routers = assignRouter(data, componentConfig)
+  let routes = assignRouter(data, componentConfig)
+
+  console.log(routes)
   // 实例化路由
-  let router = new Router({routes: routers})
-  store.commit('setRouters', routers)
+  let router = new Router({ routes })
+  store.commit('setRouters', routes)
   store.commit('initTab', sessionStorage.tabnavBox ? JSON.parse(sessionStorage.tabnavBox) : [
     {
       title: '主页',
@@ -127,6 +130,7 @@ const init = function (data) {
   ])
   // 再实例化vue
   new Vue({
+    name: 'app',
     store,
     router,
     render: h => h(App)

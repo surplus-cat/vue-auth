@@ -1,5 +1,5 @@
 import store from '../index'
-import router from '../../router/index'
+import { fullPath } from '../../router/index'
 export default {
   state: {
     info: '' // 每次刷新都要通过token请求个人信息来筛选动态路由
@@ -20,7 +20,7 @@ export default {
       }
       sessionStorage.setItem('info', JSON.stringify(store.getters.info))
       store.dispatch('newRoutes', options.role)
-      router.addRoutes(store.getters.addRouters)
+      fullPath.addRoutes(store.getters.addRouters)
     }
   },
   actions: {

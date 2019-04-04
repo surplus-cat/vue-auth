@@ -6,7 +6,7 @@
         <layout-header></layout-header>
         <el-main id="elmain">
           <transition name="main" mode="out-in">
-            <router-view></router-view>
+            <router-view :key="key"></router-view>
           </transition>
         </el-main>
         <el-footer>
@@ -28,6 +28,16 @@ export default {
     layoutHeader,
     bottom,
     layoutAside
+  },
+  computed: {
+    key() {
+      return this.$route.name !== undefined? this.$route.name + +new Date(): this.$route + +new Date()
+    }
+  },
+  watch: {
+    $route(to, from) {
+      console.log(to)
+    }
   }
 }
 </script>

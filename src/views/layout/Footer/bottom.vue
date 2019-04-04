@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>Copyright © </p>
+    <!-- <p>Copyright © </p> -->
   </div>
 </template>
 

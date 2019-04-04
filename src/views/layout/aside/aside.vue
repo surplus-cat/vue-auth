@@ -6,7 +6,8 @@
         <p v-if="$store.getters.logoShow">XU</p>
         <p v-else>后台模板</p>
       </div>
-      <el-menu :default-active="$route.path"
+      <el-menu 
+        :default-active="$route.path"
         class="el-menu-vertical"
         @select="selectmenu"
         :collapse="$store.getters.isCollapse"
@@ -22,7 +23,7 @@
               <i :class="item.iconCls?item.iconCls:[fa,fa-server]"></i>
               <span slot="title">{{ `${item.name}` }}</span>
             </template>
-            <menu-tree :menuData="item.children"></menu-tree>
+            <menu-tree :menu-data="item.children"></menu-tree>
           </el-submenu>
           <el-menu-item :index="item.path" v-else-if="item.alone">
             <i :class="item.iconCls?item.iconCls:[fa,fa-file]"></i>
