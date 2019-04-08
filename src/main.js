@@ -15,6 +15,7 @@ import axios from 'axios'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
+Vue.use(Router);
 
 //  获取角色信息，根据用户权限动态加载路由
 // router.beforeEach((to, from, next) => {
@@ -56,19 +57,14 @@ Vue.use(ElementUI)
 
 //   }
 // })
-axios.post('https://www.easy-mock.com/mock/5c9da69927388d303f3837b7/example/login', {
-  username: '1111',
-  password: '1111'
-}).then(res => {
-  sessionStorage.user = JSON.stringify(res.data)
-})
-// if (!sessionStorage.user) location.href = 'http://localhost:8964/login.html'
-const menu = JSON.parse(sessionStorage.user).data.userMenu
-
-console.log(componentConfig.Common.HomeMain)
-console.log(typeof componentConfig.Common.HomeMain)
-console.log(componentConfig.func.AddArticle)
-console.log(typeof componentConfig.func.AddArticle)
+// axios.post('https://www.easy-mock.com/mock/5c9da69927388d303f3837b7/example/login', {
+//   username: '1111',
+//   password: '1111'
+// }).then(res => {
+//   sessionStorage.user = JSON.stringify(res.data)
+// })
+if (!sessionStorage.user) location.href = 'http://localhost:8964/login.html'
+const menu = sessionStorage.user ? JSON.parse(sessionStorage.user).data.userMenu : []
 
 // 处理数据
 var newData = menu.map(v => {
@@ -76,28 +72,28 @@ var newData = menu.map(v => {
   return { ...v, children: v.children.filter(n => n.display) }
 })
 
-console.log(newData)
+//console.log(newData)
 
 function assignRouter (prev, next) {
   prev.reduce((a, b) => {
     if (b.children && b.children.length > 0) {
-      if (b.components) {
-        let squs = Object.keys(next).findIndex(v => { return b.components.indexOf(v) > -1 })
-        let nums = Object.keys(Object.values(next)[squs]).findIndex(v => { return b.components.indexOf(v) > -1 })
+      if (b.component) {
+        let squs = Object.keys(next).findIndex(v => { return b.component.indexOf(v) > -1 })
+        let nums = Object.keys(Object.values(next)[squs]).findIndex(v => { return b.component.indexOf(v) > -1 })
 
-        b.components = Object.values(next)[squs][Object.keys(Object.values(next)[squs])[nums]]
+        b.component = Object.values(next)[squs][Object.keys(Object.values(next)[squs])[nums]]
       }
       b.children.filter(k => {
-        let index = Object.keys(next).findIndex(v => { return k.components.indexOf(v) > -1 })
-        let idx = Object.keys(Object.values(next)[index]).findIndex(v => { return k.components.indexOf(v) > -1 })
+        let index = Object.keys(next).findIndex(v => { return k.component.indexOf(v) > -1 })
+        let idx = Object.keys(Object.values(next)[index]).findIndex(v => { return k.component.indexOf(v) > -1 })
 
-        k.components = Object.values(next)[index][Object.keys(Object.values(next)[index])[idx]]
+        k.component = Object.values(next)[index][Object.keys(Object.values(next)[index])[idx]]
       })
     } else {
-      if (b.components) {
-        let squ = Object.keys(next).findIndex(v => { return b.components.indexOf(v) > -1 })
-        let num = Object.keys(Object.values(next)[squ]).findIndex(v => { return b.components.indexOf(v) > -1 })
-        b.components = Object.values(next)[squ][Object.keys(Object.values(next)[squ])[num]]
+      if (b.component) {
+        let squ = Object.keys(next).findIndex(v => { return b.component.indexOf(v) > -1 })
+        let num = Object.keys(Object.values(next)[squ]).findIndex(v => { return b.component.indexOf(v) > -1 })
+        b.component = Object.values(next)[squ][Object.keys(Object.values(next)[squ])[num]]
       }
     }
   }, [])
@@ -118,7 +114,7 @@ const init = function (data) {
   // componentConfigs 是本地的组件配置
   let routes = assignRouter(data, componentConfig)
 
-  console.log(routes)
+  //console.log(routes)
   // 实例化路由
   let router = new Router({ routes })
   store.commit('setRouters', routes)
@@ -135,6 +131,9 @@ const init = function (data) {
     router,
     render: h => h(App)
   }).$mount('#app')
+
+  let hasInstantiated = router.resolve({name: '发布文章'}).route.matched.length !== 0
+  //console.log(hasInstantiated )
 }
 
 init(newData)

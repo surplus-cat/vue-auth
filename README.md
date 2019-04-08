@@ -64,70 +64,196 @@ npm run unit
 ## 5. 项目结构说明
 ```
 |------------build          构建脚本目录
-
     |---------build.js             生产环境构建脚本
-
     |---------check-version.js 检查node、npm等版本
-
     |---------dev-client.js     开发服务器热重载脚本，主要用来实现开发阶段的页面自动刷新
-
     |---------dev-server.js     运行本地开发服务器
-
     |---------utils.js               构建相关工具方法
-
     |---------vebpack.base.conf.js     webpack基本配置
-
     |---------vebpack.dev.conf.js       webpack开发环境配置
-
     |---------vebpack.prod.conf.js     webpack生产环境配置   
-
 |------------config           项目配置
-
     |---------dev.env.js           开发环境变量
-
     |---------index.js              项目配置文件
-
     |---------prod.env.js         生产环境变量
-
 |------------dist             使用生产环境配置构建项目，构建好的目录放到该目录
-
 |------------node_modules         node的依赖包
-
 |------------src
-
     |---------assets                 资源目录，这里的资源会被webpack构建
-
     |---------components        		组件目录
-
     |---------i18n					        多语言国际化
-
     |---------router
-
     |-----------index.js               前端路由
-
     |---------views					页面文件
-
     |---------vuex					全局状态管理目录
-
     |--------App.vue                	根组件
-
     |--------main.js                 入口js文件
-
 |------------static             纯静态资源，不会被webpack构建
-
 |------------index.html         入口页面
-
 |------------test        		单元测试
-
 |------------.babelrc            ES6语法编译配置
-
 |-----------.editorconfig      	定义代码格式
-
 |-----------.gitignore         	git 上传需要忽略的文件
-
 |-----------package.json       项目基本信息
-
 ---------------------
 ```
-## 结语
-如果这个框架对你有帮助的话，请给个星点个star
+
+
+期间有一个问题是懒加载引入组件导致组件无法加载，最后解决方案是发现 下面几个component: () => import ... 写成 components: () => import ...，
+同时补充一下，我猜是vue-loader升级到了13.0导致的
+vue-loader13.0有一个变更就是默认启用了esModule
+require('./components/ExampleComponent.vue').default
+
+
+后台路由返回示例:
+{
+  "data": {
+    "userMenu": [
+      {
+        "path": "/",
+        "redirect": "/index",
+        "hidden": true,
+        "children": []
+      },
+      {
+        "path": "/index",
+        "iconCls": "fa fa-dashboard",
+        "name": "首页",
+        "components": "Common.Layout",
+        "alone": true,
+        "children": [
+          {
+            "path": "/index",
+            "iconCls": "fa fa-dashboard",
+            "name": "主页",
+            "components": "Common.HomeMain",
+            "children": [],
+            "display": true
+          }
+        ]
+      },
+      {
+        "path": "/",
+        "iconCls": "el-icon-tickets",
+        "name": "文章管理",
+        "components": "Common.Layout",
+        "children": [
+          {
+            "path": "/addArticle",
+            "iconCls": "el-icon-edit-outline",
+            "name": "发布文章",
+            "components": "func.AddArticle",
+            "children": [],
+            "display": false
+          },
+          {
+            "path": "/addArticleEditor",
+            "iconCls": "el-icon-edit-outline",
+            "name": "发布文章-富文本",
+            "components": "func.AddArticleEditor",
+            "children": [],
+            "display": true
+          }
+        ]
+      },
+      {
+        "path": "/",
+        "iconCls": "fa fa-paw",
+        "name": "图标",
+        "components": "Common.Layout",
+        "children": [
+          {
+            "path": "/icon",
+            "iconCls": "fa fa-life-ring",
+            "name": "内置图标",
+            "components": "func.Icon",
+            "children": [],
+            "display": true
+          }
+        ]
+      },
+      {
+        "path": "/",
+        "iconCls": "fa fa-exchange",
+        "name": "穿梭框",
+        "components": "Common.Layout",
+        "children": [
+          {
+            "path": "/transfer",
+            "iconCls": "fa fa-sign-in",
+            "name": "穿梭框demo",
+            "components": "func.Transfer",
+            "children": [],
+            "display": true
+          }
+        ]
+      },
+      {
+        "path": "/",
+        "iconCls": "fa fa-newspaper-o",
+        "name": "表格",
+        "components": "Common.Layout",
+        "children": [
+          {
+            "path": "/dataTable",
+            "iconCls": "fa fa-sliders",
+            "name": "多选数据表格",
+            "components": "func.DataTable",
+            "children": [],
+            "display": true,
+            "meta": {
+              "handleAuth": {
+                "add": true,
+                "edit": true,
+                "del": true
+              }
+            }
+          },
+          {
+            "path": "/filterTable",
+            "iconCls": "fa fa-sort-amount-asc",
+            "name": "筛选表格",
+            "components": "func.FilterTable",
+            "children": [],
+            "display": false,
+            "meta": {
+              "handleAuth": {
+                "add": false,
+                "edit": false,
+                "del": false
+              }
+            }
+          },
+          {
+            "path": "/dragTabe",
+            "iconCls": "fa fa-hand-stop-o",
+            "name": "拖拽排序",
+            "components": "func.DragTable",
+            "children": [],
+            "display": false,
+            "meta": {
+              "handleAuth": {
+                "add": true,
+                "edit": false,
+                "del": true
+              }
+            }
+          }
+        ]
+      },
+      {
+        "path": "/404",
+        "components": "Common.NotFound",
+        "name": "404",
+        "hidden": true,
+        "children": []
+      },
+      {
+        "path": "*",
+        "redirect": "/404",
+        "hidden": true,
+        "children": []
+      }
+    ]
+  }
+}

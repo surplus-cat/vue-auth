@@ -29,10 +29,8 @@ export default {
         title: arg.title,
         path: arg.path
       })
-      //sessionStorage.tabnavBox = JSON.stringify(state.tabnavBox)
     },
     initTab (state, val) {
-      //console.log(val)
       state.tabnavBox = val
     },
     openMenu (state, arg) {
@@ -47,7 +45,6 @@ export default {
         let tabActive = state.tabnavBox[index] || state.tabnavBox[index - 1]
         arg.router.push(tabActive.path)
       }
-      //sessionStorage.tabnavBox = JSON.stringify(state.tabnavBox)
     },
     removeOtherTab (state, arg) {
       state.tabnavBox = [{

@@ -21,6 +21,7 @@
 import layoutAside from './aside/aside'
 import layoutHeader from './header/header'
 import bottom from './Footer/bottom'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'dc-home',
@@ -32,11 +33,15 @@ export default {
   computed: {
     key() {
       return this.$route.name !== undefined? this.$route.name + +new Date(): this.$route + +new Date()
-    }
+    },
+    ...mapGetters([
+      'tabnavBox'
+    ])
   },
   watch: {
-    $route(to, from) {
-      console.log(to)
+    tabnavBox: function(newVal, oldVal) {
+      console.log(newVal, oldVal)
+      sessionStorage.tabnavBox = JSON.stringify(this.tabnavBox)
     }
   }
 }

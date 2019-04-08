@@ -1,6 +1,6 @@
 //const view = name => require(`@/views/${name}`)
 
-const view = name => () => import(`@/views/${name}`).then(m => m.default)
+//const view = name => () => import(`@/views/${name}`).then(m => m.default)
 
 // const view = (AsyncView) => ({
 //   // 需要加载的组件 (应该是一个 `Promise` 对象)
@@ -22,7 +22,7 @@ const view = name => () => import(`@/views/${name}`).then(m => m.default)
 //   require(`./views/${name}`);
 // });
 
-//const view = name => resolve => require([`@/views/${name}`], resolve)
+const view = name => resolve => require([`../views/${name}`], resolve)
 //const view = name => () => import(/* webpackChunkName: "index" */ `@/views/${name}`)
 
 
@@ -30,9 +30,9 @@ const view = name => () => import(`@/views/${name}`).then(m => m.default)
 export default {
   Common: {
     // UpdatePassword: r => require.ensure([], () => r(require('../../vue/pages/users/UpdatePassword')), 'users'),
-    HomeMain: require('@/views/index/mainIndex.vue'),
-    NotFound: require('@/page404'),
-    Layout: require('@/views/layout/layout'),
+    HomeMain: require('@/views/index/mainIndex.vue').default,
+    NotFound: require('@/page404').default,
+    Layout: require('@/views/layout/layout').default,
   },
   func: {
     AddArticle: view("article/addArticle"),
@@ -42,12 +42,5 @@ export default {
     DataTable: view("table/dataTables"),
     FilterTable: view("table/filterTable"),
     DragTable: view("table/dragTabe")
-    // AddArticle: () => view(views("article/addArticle")),
-    // AddArticleEditor: () => view(views("article/addArticleEditor")),
-    // Icon: () => view(views("icon/index")),
-    // Transfer: () => view(views("transfer/transfer")),
-    // DataTable: () => view(views("table/dataTables")),
-    // FilterTable: () => view(views("table/filterTable")),
-    // DragTable: () => view(views("table/dragTabe"))
   }
 }
