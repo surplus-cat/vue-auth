@@ -57,13 +57,13 @@ Vue.use(Router);
 
 //   }
 // })
-// axios.post('https://www.easy-mock.com/mock/5c9da69927388d303f3837b7/example/login', {
-//   username: '1111',
-//   password: '1111'
-// }).then(res => {
-//   sessionStorage.user = JSON.stringify(res.data)
-// })
-if (!sessionStorage.user) location.href = 'http://localhost:8964/login.html'
+axios.post('https://www.easy-mock.com/mock/5c9da69927388d303f3837b7/example/login', {
+  username: '1111',
+  password: '1111'
+}).then(res => {
+  sessionStorage.user = JSON.stringify(res.data)
+})
+//if (!sessionStorage.user) location.href = 'http://localhost:8964/login.html'
 const menu = sessionStorage.user ? JSON.parse(sessionStorage.user).data.userMenu : []
 
 // 处理数据

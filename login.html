@@ -72,7 +72,9 @@
 
 </html>
 <script>
+
 $(function () {
+  sessionStorage.clear()
   $('#send').click(function () {
     if ($("input[name='username']").val() === '') {
       alert('请输入账号')

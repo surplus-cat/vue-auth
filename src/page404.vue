@@ -87,7 +87,7 @@ export default {
       }, 1000 * 6)
     }
 
-    startAnimation()
+    //startAnimation()
   }
 }
 </script>

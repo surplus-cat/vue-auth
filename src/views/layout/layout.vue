@@ -40,7 +40,7 @@ export default {
   },
   watch: {
     tabnavBox: function(newVal, oldVal) {
-      console.log(newVal, oldVal)
+      //console.log(newVal, oldVal)
       sessionStorage.tabnavBox = JSON.stringify(this.tabnavBox)
     }
   }
