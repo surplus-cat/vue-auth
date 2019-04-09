@@ -79,6 +79,10 @@ module.exports = {
         }
       },
       {
+        test: /\.worker\.js$/, //以.worker.js结尾的文件将被worker-loader加载
+          use: { loader: 'worker-loader' }
+      },
+      {
         test: /\.sass$/,
         loaders: ['style', 'css', 'sass']
       }

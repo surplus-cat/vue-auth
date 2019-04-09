@@ -12,6 +12,7 @@ import Router from 'vue-router'
 import store from './vuex'
 import componentConfig from './extra/componentConfigs'
 import axios from 'axios'
+//import Worker from './test.worker.js';
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
@@ -57,14 +58,25 @@ Vue.use(Router);
 
 //   }
 // })
-// axios.post('https://www.easy-mock.com/mock/5c9da69927388d303f3837b7/example/login', {
-//   username: '1111',
-//   password: '1111'
-// }).then(res => {
-//   sessionStorage.user = JSON.stringify(res.data)
-// })
+axios.post('https://www.easy-mock.com/mock/5c9da69927388d303f3837b7/example/login', {
+  username: '1111',
+  password: '1111'
+}).then(res => {
+  sessionStorage.user = JSON.stringify(res.data)
+})
 //if (!sessionStorage.user) location.href = 'http://localhost:8964/login.html'
 const menu = sessionStorage.user ? JSON.parse(sessionStorage.user).data.userMenu : []
+
+// 创建 worker 实例
+// var worker = new Worker(); // 传入 worker 脚本文件的路径即可
+
+// worker.onmessage = function (event) {
+//   console.log(event.data)
+// };
+
+// worker.postMessage('11111')
+//aDedicatedWorker.postMessage(menu, [menu.abBuffer]);
+// worker.postMessage(JSON.stringify(menu));
 
 // 处理数据
 var newData = menu.map(v => {
@@ -72,7 +84,30 @@ var newData = menu.map(v => {
   return { ...v, children: v.children.filter(n => n.display) }
 })
 
+// function createWebWorker(file) {
+//   let work_blob = new Blob(file);
+//   let worker = new Worker(work_blob);
+//   return worker;
+// }
+
+
+
 //console.log(newData)
+
+// var jsFileURI = require('');
+// var worker = new Worker("./test.worker.js", { name : 'myWorker' });
+
+// worker.postMessage({'cmd': 'average', 'data': [1, 2, 3, 4]});
+
+// worker.onmessage = function (event) {
+//   console.log('Received message ' + event.data);
+// }
+
+// worker.addEventListener('message', function(e) {
+//   console.log(e.data);
+// }, false);
+
+
 
 function assignRouter (prev, next) {
   prev.reduce((a, b) => {
@@ -132,7 +167,7 @@ const init = function (data) {
     render: h => h(App)
   }).$mount('#app')
 
-  let hasInstantiated = router.resolve({name: '发布文章'}).route.matched.length !== 0
+  //let hasInstantiated = router.resolve({name: '发布文章'}).route.matched.length !== 0
   //console.log(hasInstantiated )
 }
 
