@@ -11,7 +11,8 @@
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "skeleton": "webpack --config ./webpack.skeleton.conf.js && node skeleton.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -99,12 +100,14 @@
     "url-loader": "^0.5.8",
     "vue-jest": "^1.0.2",
     "vue-loader": "^13.3.0",
+    "vue-server-renderer": "^2.6.10",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.5.2",
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.9.1",
     "webpack-merge": "^4.1.0",
+    "webpack-node-externals": "^1.7.2",
     "worker-loader": "^2.0.0"
   },
   "engines": {
